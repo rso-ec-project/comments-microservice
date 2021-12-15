@@ -8,7 +8,7 @@ namespace Comments.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.ToTable("reservation");
+            builder.ToTable("comment");
 
             builder.Property(x => x.Content)
                 .HasColumnName("content")
