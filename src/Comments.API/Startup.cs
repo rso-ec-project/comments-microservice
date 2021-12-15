@@ -1,4 +1,9 @@
+using AutoMapper;
+using Comments.Application.Comments;
+using Comments.Domain.CommentAggregate;
+using Comments.Domain.Shared;
 using Comments.Infrastructure;
+using Comments.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +32,16 @@ namespace Comments.API
                 options.UseNpgsql(GetConnectionString());
             });
 
+            var mapperConfig = CreateMapperConfiguration();
+            var mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<ICommentService, CommentService>();
+
+            services.AddScoped<ICommentRepository, CommentRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -42,6 +57,16 @@ namespace Comments.API
             var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
             return $"Host={host};Database={database};Username={username};Password={password}";
+        }
+
+        private static MapperConfiguration CreateMapperConfiguration()
+        {
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new CommentMapperProfile());
+            });
+
+            return mapperConfig;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
