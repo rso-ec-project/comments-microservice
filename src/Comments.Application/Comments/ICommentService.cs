@@ -9,5 +9,6 @@ namespace Comments.Application.Comments
         Task<CommentDto> GetAsync(int commentId);
         Task<CommentDto> PostAsync(CommentPostDto commentPostDto);
         Task<CommentDto> PutAsync(int commentId, CommentPutDto commentPutDto);
+        Task<bool> DeleteAsync(int commentId);
     }
 }

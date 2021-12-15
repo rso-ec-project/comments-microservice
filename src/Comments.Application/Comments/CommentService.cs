@@ -53,5 +53,17 @@ namespace Comments.Application.Comments
             await _unitOfWork.CommitAsync();
             return _mapper.Map<Comment, CommentDto>(updatedComment);
         }
+
+        public async Task<bool> DeleteAsync(int commentId)
+        {
+            var comment = await _unitOfWork.CommentRepository.GetAsync(commentId);
+
+            if (comment == null)
+                return false;
+
+            _unitOfWork.CommentRepository.Remove(commentId);
+            await _unitOfWork.CommitAsync();
+            return true;
+        }
     }
 }
