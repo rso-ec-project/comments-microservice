@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Comments.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [Produces("application/json")]
     public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentService;
