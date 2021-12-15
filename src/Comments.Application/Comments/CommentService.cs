@@ -28,5 +28,13 @@ namespace Comments.Application.Comments
             var comment = await _unitOfWork.CommentRepository.GetAsync(commentId);
             return _mapper.Map<Comment, CommentDto>(comment);
         }
+
+        public async Task<CommentDto> PostAsync(CommentPostDto commentPostDto)
+        {
+            var comment = _mapper.Map<CommentPostDto, Comment>(commentPostDto);
+            var addedComment = await _unitOfWork.CommentRepository.AddAsync(comment);
+            await _unitOfWork.CommitAsync();
+            return _mapper.Map<Comment, CommentDto>(addedComment);
+        }
     }
 }

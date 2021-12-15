@@ -38,5 +38,13 @@ namespace Comments.API.Controllers
 
             return comment;
         }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<CommentDto>> Post([FromBody] CommentPostDto commentPostDto)
+        {
+            return await _commentService.PostAsync(commentPostDto);
+        }
     }
 }
