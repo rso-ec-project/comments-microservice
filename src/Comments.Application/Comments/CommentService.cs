@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Comments.Domain.CommentAggregate;
 using Comments.Domain.Shared;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,6 +36,22 @@ namespace Comments.Application.Comments
             var addedComment = await _unitOfWork.CommentRepository.AddAsync(comment);
             await _unitOfWork.CommitAsync();
             return _mapper.Map<Comment, CommentDto>(addedComment);
+        }
+
+        public async Task<CommentDto> PutAsync(int commentId, CommentPutDto commentPutDto)
+        {
+            var comment = await _unitOfWork.CommentRepository.GetAsync(commentId);
+
+            if (comment == null)
+                return null;
+
+            comment.Content = commentPutDto.Content;
+            comment.Rating = commentPutDto.Rating;
+            comment.CreatedAt = DateTime.Now;
+
+            var updatedComment = _unitOfWork.CommentRepository.Update(comment);
+            await _unitOfWork.CommitAsync();
+            return _mapper.Map<Comment, CommentDto>(updatedComment);
         }
     }
 }

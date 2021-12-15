@@ -46,5 +46,18 @@ namespace Comments.API.Controllers
         {
             return await _commentService.PostAsync(commentPostDto);
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<CommentDto>> Put(int id, [FromBody] CommentPutDto reservationPutDto)
+        {
+            var comment = await _commentService.PutAsync(id, reservationPutDto);
+
+            if (comment == null)
+                return NotFound();
+
+            return comment;
+        }
     }
 }

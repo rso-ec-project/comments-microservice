@@ -8,5 +8,6 @@ namespace Comments.Application.Comments
         Task<List<CommentDto>> GetAsync();
         Task<CommentDto> GetAsync(int commentId);
         Task<CommentDto> PostAsync(CommentPostDto commentPostDto);
+        Task<CommentDto> PutAsync(int commentId, CommentPutDto commentPutDto);
     }
 }
