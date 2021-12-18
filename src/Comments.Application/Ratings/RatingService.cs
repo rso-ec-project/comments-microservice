@@ -18,6 +18,9 @@ namespace Comments.Application.Ratings
             var comments = await _unitOfWork.CommentRepository.GetAsync();
             var chargingStationComments = comments.Where(x => x.ChargingStationId == chargingStationId).ToList();
 
+            if (!chargingStationComments.Any())
+                return null;
+
             return new RatingDto()
             {
                 ChargingStationId = chargingStationId,

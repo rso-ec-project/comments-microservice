@@ -25,7 +25,11 @@ namespace Comments.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<RatingDto>> Get([FromQuery, Required] int chargingStationId)
         {
-            return await _ratingService.GetAsync(chargingStationId);
+            var ratingDto = await _ratingService.GetAsync(chargingStationId);
+
+            if (ratingDto == null)
+                return NotFound();
+            return Ok(ratingDto);
         }
     }
 }
