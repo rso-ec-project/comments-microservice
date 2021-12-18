@@ -1,6 +1,7 @@
 using AutoMapper;
 using Comments.API.Extensions;
 using Comments.Application.Comments;
+using Comments.Application.Ratings;
 using Comments.Domain.CommentAggregate;
 using Comments.Domain.Shared;
 using Comments.Infrastructure;
@@ -39,6 +40,7 @@ namespace Comments.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IRatingService, RatingService>();
 
             services.AddScoped<ICommentRepository, CommentRepository>();
 
