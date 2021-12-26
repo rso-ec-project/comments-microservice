@@ -24,9 +24,9 @@ namespace Comments.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<List<CommentDto>>> GetByChargingStation([FromQuery, Required] int chargingStationId)
+        public async Task<ActionResult<List<CommentDto>>> GetByChargingStation([FromQuery, Required] int chargingStationId, [FromQuery] int? userId = null)
         {
-            return await _commentService.GetByChargingStationAsync(chargingStationId);
+            return await _commentService.GetByChargingStationAsync(chargingStationId, userId);
         }
 
         [HttpGet("{id}")]
