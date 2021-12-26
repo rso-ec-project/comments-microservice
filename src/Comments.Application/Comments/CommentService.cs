@@ -3,6 +3,7 @@ using Comments.Domain.CommentAggregate;
 using Comments.Domain.Shared;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Comments.Application.Comments
@@ -18,9 +19,10 @@ namespace Comments.Application.Comments
             _mapper = mapper;
         }
 
-        public async Task<List<CommentDto>> GetAsync()
+        public async Task<List<CommentDto>> GetByChargingStationAsync(int chargingStationId)
         {
             var comments = await _unitOfWork.CommentRepository.GetAsync();
+            comments = comments.Where(x => x.ChargingStationId == chargingStationId).ToList();
             return _mapper.Map<List<Comment>, List<CommentDto>>(comments);
         }
 

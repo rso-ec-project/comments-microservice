@@ -5,7 +5,7 @@ namespace Comments.Application.Comments
 {
     public interface ICommentService
     {
-        Task<List<CommentDto>> GetAsync();
+        Task<List<CommentDto>> GetByChargingStationAsync(int chargingStationId);
         Task<CommentDto> GetAsync(int commentId);
         Task<CommentDto> PostAsync(CommentPostDto commentPostDto);
         Task<CommentDto> PutAsync(int commentId, CommentPutDto commentPutDto);

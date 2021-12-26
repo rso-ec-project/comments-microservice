@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Comments.API.Controllers
@@ -23,9 +24,9 @@ namespace Comments.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<List<CommentDto>>> Get()
+        public async Task<ActionResult<List<CommentDto>>> GetByChargingStation([FromQuery, Required] int chargingStationId)
         {
-            return await _commentService.GetAsync();
+            return await _commentService.GetByChargingStationAsync(chargingStationId);
         }
 
         [HttpGet("{id}")]
