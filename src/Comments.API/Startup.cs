@@ -1,16 +1,17 @@
 using AutoMapper;
+using Comments.API.Extensions;
 using Comments.Application.Comments;
+using Comments.Application.Ratings;
 using Comments.Domain.CommentAggregate;
 using Comments.Domain.Shared;
 using Comments.Infrastructure;
 using Comments.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using System;
 
 namespace Comments.API
@@ -39,13 +40,19 @@ namespace Comments.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IRatingService, RatingService>();
 
             services.AddScoped<ICommentRepository, CommentRepository>();
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null; });
+
+            services.AddSwagger();
+
+            services.AddApiVersioning(config =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Comments.API", Version = "v1" });
+                config.DefaultApiVersion = new ApiVersion(1, 0);
+                config.AssumeDefaultVersionWhenUnspecified = true;
+                config.ReportApiVersions = true;
             });
         }
 
@@ -72,12 +79,8 @@ namespace Comments.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Comments.API v1"));
-            }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ChargingStations.API v1"));
 
             app.UseHttpsRedirection();
 
