@@ -44,8 +44,7 @@ namespace Comments.API
 
             services.AddScoped<ICommentRepository, CommentRepository>();
 
-            services.AddControllers()
-                .AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null; });
+            services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.PropertyNamingPolicy = null; });
 
             services.AddSwagger();
 
