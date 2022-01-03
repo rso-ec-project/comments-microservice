@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comments-ms-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comments-ms
+  template:
+    metadata:
+      labels:
+        app: comments-ms
+    spec:
+      containers:
+        - image: anzx10/comments-microservice:v3.0
+          name: comments-ms
+          env:
+            - name: DB_HOST
+              value: tyke.db.elephantsql.com
+            - name: DB_NAME
+              value: duihcssa
+            - name: DB_USERNAME
+              value: duihcssa
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: comments-ms
+                  key: db-password
+          ports:
+            - containerPort: 80
+              name: server
+              protocol: TCP
+          imagePullPolicy: Always
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-ms
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8082
+      targetPort: server
+  selector:
+    app: comments-ms
