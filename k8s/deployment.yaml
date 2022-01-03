@@ -13,7 +13,7 @@ spec:
         app: comments-ms
     spec:
       containers:
-        - image: anzx10/comments-microservice:v2.0
+        - image: anzx10/comments-microservice:v3.0
           name: comments-ms
           env:
             - name: DB_HOST
