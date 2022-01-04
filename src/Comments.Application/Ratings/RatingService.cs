@@ -45,7 +45,6 @@ namespace Comments.Application.Ratings
                 };
                 _logger.LogInformation($"{request}. OK.");
                 return ratingDto;
-
             }
             catch (Exception e)
             {
