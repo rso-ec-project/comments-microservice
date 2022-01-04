@@ -14,12 +14,12 @@ namespace Comments.API
             var logger = NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
             try
             {
-                logger.Debug("init main function");
+                logger.Debug("Init main");
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
             {
-                logger.Error(ex, "Error in init");
+                logger.Error(ex, "Stopped because of exception");
                 throw;
             }
             finally
@@ -30,15 +30,16 @@ namespace Comments.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
                     logging.SetMinimumLevel(LogLevel.Information);
                 })
                 .UseNLog()
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+            ;
     }
 }
