@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2       
+    - uses: actions/checkout@v2
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
@@ -28,4 +28,4 @@ jobs:
       with:
         file: ./src/Dockerfile
         push: true
-        tags: anzx10/comments-microservice:v2.0
+        tags: anzx10/comments-microservice:v3.0
