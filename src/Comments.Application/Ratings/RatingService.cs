@@ -19,16 +19,16 @@ namespace Comments.Application.Ratings
 
         public async Task<RatingDto> GetAsync(int chargingStationId)
         {
-            var request = $"Request: GET /Ratings; chargingStationId={chargingStationId}";
+            var endpoint = $"endpoint GET /Comments?chargingStationId={chargingStationId}";
             try
             {
-                _logger.LogInformation(request);
+                _logger.LogInformation($"Entered {endpoint}");
                 var comments = await _unitOfWork.CommentRepository.GetAsync();
                 var chargingStationComments = comments.Where(x => x.ChargingStationId == chargingStationId).ToList();
 
                 if (!chargingStationComments.Any())
                 {
-                    _logger.LogInformation($"{request}. ERROR: ChargingStation with Id {chargingStationId} not found.");
+                    _logger.LogInformation($"Exited {endpoint} with: 404 ChargingStation with Id {chargingStationId} not found");
                     return null;
                 }
 
@@ -43,12 +43,12 @@ namespace Comments.Application.Ratings
                     Rating4Count = chargingStationComments.Count(x => x.Rating == 4),
                     Rating5Count = chargingStationComments.Count(x => x.Rating == 5),
                 };
-                _logger.LogInformation($"{request}. OK.");
+                _logger.LogInformation($"Exited {endpoint} with: 200 OK");
                 return ratingDto;
             }
             catch (Exception e)
             {
-                _logger.LogError($"{request}. ERROR.", e);
+                _logger.LogError($"Exited {endpoint} with: Exception {e}");
                 throw;
             }
         }
