@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Comments.API
 {
@@ -15,6 +16,7 @@ namespace Comments.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .UseSerilog((ctx, config) => { config.ReadFrom.Configuration(ctx.Configuration); });
     }
 }
