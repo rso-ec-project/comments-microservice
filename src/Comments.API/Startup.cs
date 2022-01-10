@@ -79,7 +79,7 @@ namespace Comments.API
         public void Configure(IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Comments.API v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "Comments.API v1"));
 
             app.UseHttpsRedirection();
 

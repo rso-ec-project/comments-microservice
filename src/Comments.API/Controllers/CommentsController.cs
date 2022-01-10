@@ -21,6 +21,12 @@ namespace Comments.API.Controllers
             _commentService = commentService;
         }
 
+        /// <summary>
+        /// Get a list of comments for a single charging station.
+        /// </summary>
+        /// <param name="chargingStationId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -29,6 +35,11 @@ namespace Comments.API.Controllers
             return await _commentService.GetByChargingStationAsync(chargingStationId, userId);
         }
 
+        /// <summary>
+        /// Get a single comment by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -43,6 +54,11 @@ namespace Comments.API.Controllers
             return comment;
         }
 
+        /// <summary>
+        /// Create a comment.
+        /// </summary>
+        /// <param name="commentPostDto"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -51,6 +67,12 @@ namespace Comments.API.Controllers
             return await _commentService.PostAsync(commentPostDto);
         }
 
+        /// <summary>
+        /// Update a comment.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="reservationPutDto"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -64,6 +86,11 @@ namespace Comments.API.Controllers
             return comment;
         }
 
+        /// <summary>
+        /// Delete a comment.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

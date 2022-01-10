@@ -20,6 +20,11 @@ namespace Comments.API.Controllers
             _ratingService = ratingService;
         }
 
+        /// <summary>
+        /// Get a summary of ratings for a single charging station.
+        /// </summary>
+        /// <param name="chargingStationId"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
