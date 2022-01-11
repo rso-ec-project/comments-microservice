@@ -50,7 +50,7 @@ namespace Comments.API.Extensions
                     continue;
                 }
 
-                paths.Add(key.Replace("v{version}", swaggerDoc.Info.Version), value);
+                paths.Add("/comments" + key.Replace("v{version}", swaggerDoc.Info.Version), value);
             }
 
             swaggerDoc.Paths = paths;
